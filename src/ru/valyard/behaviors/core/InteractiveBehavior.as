@@ -50,7 +50,7 @@ package ru.valyard.behaviors.core {
 		/**
 		 * InteractiveObject behavior target.
 		 */
-		protected final function get displayTarget():InteractiveObject {
+		public final function get displayTarget():InteractiveObject {
 			return this._displayTarget;
 		}
 

@@ -9,5 +9,3 @@ bin-release
 FlexUnitCompilerApplication.as
 FlexUnitApplication.as
 html-template
-.actionScriptProperties
-.flexLibProperties
