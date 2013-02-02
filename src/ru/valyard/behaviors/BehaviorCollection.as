@@ -4,14 +4,13 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 package ru.valyard.behaviors {
-	import by.blooddy.core.meta.TypeInfo;
-	import by.blooddy.core.utils.WeakRef;
-	
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
+	import flash.utils.describeType;
 	import flash.utils.getQualifiedClassName;
 	
 	import ru.valyard.behaviors.events.BehaviorCollectionEvent;
+	import ru.valyard.behaviors.utils.WeakRef;
 	
 	/**
 	 * Collection of behaviors attached to an object.
@@ -193,17 +192,18 @@ package ru.valyard.behaviors {
 		 * @private
 		 */
 		private function getClassNames(value:Object, selfName:String):Array {
-			var type:TypeInfo = TypeInfo.getInfo(value);
+			var type:XML = describeType(value);
+			var superClasses:XMLList = type.extendsClass.@type;
+			var interfaces:XMLList = type.implementsInterface.@type;
+			
 			var names:Array = [selfName];
 			
-			var superClasses:Vector.<QName> = type.getSuperclasses();
-			var l:uint = superClasses.length-3; // Behavior, EventDispatcher, Object
+			var l:uint = superClasses.length()-3; // Behavior, EventDispatcher, Object
 			for (var i:uint = 0; i < l; i++) {
 				names.push(superClasses[i].toString());
 			}
 			
-			var interfaces:Vector.<QName> = type.getInterfaces();
-			l = interfaces.length-1; // IEventDispatcher
+			l = interfaces.length()-1; // IEventDispatcher
 			for (i = 0; i < l; i++) {
 				names.push(interfaces[i].toString());
 			}
